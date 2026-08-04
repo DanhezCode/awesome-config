@@ -99,7 +99,7 @@ const baseConfig = {
   },
 };
 
-const uiConfig = {
+const uiReactConfig = {
   plugins: {
     ...baseConfig.plugins,
     "react-refresh": reactRefresh.plugin,
@@ -117,18 +117,19 @@ const uiConfig = {
     ...reactHooks.configs["recommended-latest"].rules,
     ...reactPerf.configs.recommended.rules,
     ...reactRefresh.configs.vite().rules,
-    ...preact[1].rules,
 
     ...compat.configs["flat/recommended"].rules,
     ...jsxA11y.configs.strict.rules,
   },
+};
 
-  settings: {
-    react: {
-      pragma: "h",
-      version: "16.0",
-    },
+const uiPreactConfig = {
+  ...uiReactConfig,
+  rules: {
+    ...uiReactConfig.rules,
+    ...preact[1].rules,
   },
+  settings: preact[1].settings,
 };
 
 const ignoreConfig = {
@@ -136,10 +137,17 @@ const ignoreConfig = {
 };
 
 export const eslintBase = defineConfig(baseConfig, ignoreConfig);
-export const eslintBaseUI = defineConfig(
+export const eslintUIReact = defineConfig(
   {
     ...baseConfig,
-    ...uiConfig,
+    ...uiReactConfig,
+  },
+  ignoreConfig
+);
+export const eslintUIPreact = defineConfig(
+  {
+    ...baseConfig,
+    ...uiPreactConfig,
   },
   ignoreConfig
 );
