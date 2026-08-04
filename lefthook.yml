@@ -1,0 +1,29 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: format and lint
+      group:
+        piped: true
+        jobs:
+          - run: bun prettier --write {staged_files}
+            glob: "*.{ts,tsx,js,jsx}"
+            stage_fixed: true
+          - run: bun eslint --fix {staged_files}
+            glob: "*.{ts,tsx,js,jsx}"
+            stage_fixed: true
+    - run: bun tsc --noEmit
+      glob: "*.{ts,tsx}"
+
+commit-msg:
+  commands:
+    commitlint:
+      run: bunx commitlint --edit {1}
+
+pre-push:
+  piped: true
+  commands:
+    run-precommit:
+      run: bun lefthook run pre-commit
+
+    run-tests:
+      run: bun test

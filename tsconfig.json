@@ -5,6 +5,8 @@
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
