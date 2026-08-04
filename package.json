@@ -13,7 +13,7 @@
     "check:typecheck:format:lint": "bun run --parallel typecheck check:format:lint",
     "check:all": "bun check:typecheck:format:lint && bun tests",
     "tests": "bun vitest",
-    "prepare": "lefthook install"
+    "postinstall": "lefthook install"
   },
   "devDependencies": {},
   "peerDependencies": {
