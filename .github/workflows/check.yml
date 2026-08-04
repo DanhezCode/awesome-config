@@ -1,0 +1,50 @@
+name: Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+      - beta
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Run checks in parallel
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        task: [typecheck, format, lint, tests]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2.2.0
+        with:
+          bun-version: stable
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run ${{ matrix.task }}
+        run: |
+          case "${{ matrix.task }}" in
+            typecheck)
+              bun typecheck
+              ;;
+            format)
+              bun format
+              ;;
+            lint)
+              bun lint
+              ;;
+            tests)
+              bun tests
+              ;;
+          esac
+        shell: bash

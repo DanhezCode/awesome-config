@@ -1,6 +1,9 @@
 name: Release
 on:
-  push:
+  workflow_run:
+    workflows:
+      - Check
+    types: [completed]
     branches:
       - main
       - master
@@ -14,6 +17,7 @@ permissions:
 jobs:
   release:
     name: Release
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
@@ -22,14 +26,14 @@ jobs:
       id-token: write # to enable use of OIDC for trusted publishing and npm provenance
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version: latest
 
       - name: Release
         env:
