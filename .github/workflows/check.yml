@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        task: [typecheck, format, lint, tests]
+        task: [typecheck, format, lint, tests, audit]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -45,6 +45,9 @@ jobs:
               ;;
             tests)
               bun tests
+              ;;
+            audit)
+              bun audit
               ;;
           esac
         shell: bash

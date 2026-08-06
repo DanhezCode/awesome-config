@@ -12,6 +12,9 @@
     "check:format:lint": "bun format:fix && bun lint:fix",
     "check:typecheck:format:lint": "bun run --parallel typecheck check:format:lint",
     "check:all": "bun check:typecheck:format:lint && bun tests",
+    "audit": "bun audit",
+    "audit:fix": "bun audit --fix",
+    "socket:optimize": "bunx socket optimize",
     "tests": "bun vitest",
     "postinstall": "lefthook install"
   },

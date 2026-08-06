@@ -27,3 +27,6 @@ pre-push:
 
     run-tests:
       run: bun test
+
+    run-audit:
+      run: bun audit
