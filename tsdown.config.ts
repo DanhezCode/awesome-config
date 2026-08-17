@@ -14,6 +14,7 @@ export default defineConfig({
       exports[lefthook] = lefthook;
 
       delete exports["./tsdown.config"];
+      delete exports["./vitest.config"];
 
       return exports;
     },
