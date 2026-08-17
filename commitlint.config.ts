@@ -29,7 +29,7 @@ const MAX_SCOPE_LENGTH = 20;
  * Use the preset directly in `commitlint.config.ts`:
  *
  * ```ts
- * import commitlintConfig from "@your-scope/commitlint-config";
+ * import commitlintConfig from "awesome-config/commitlint-config";
  *
  * export default commitlintConfig;
  * ```
@@ -40,7 +40,7 @@ const MAX_SCOPE_LENGTH = 20;
  * ```ts
  * import { RuleConfigSeverity } from "@commitlint/types";
  *
- * import commitlintConfig from "@your-scope/commitlint-config";
+ * import commitlintConfig from "awesome-config/commitlint-config";
  *
  * export default {
  *   ...commitlintConfig,

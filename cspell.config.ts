@@ -24,16 +24,14 @@ import type { CSpellSettings } from "cspell";
  * Use the preset directly in `cspell.config.ts`:
  *
  * ```ts
- * import cspellSettings from "@your-scope/cspell-config";
- *
- * export default cspellSettings;
+ * export { default } from "awesome-config/cspell.config";
  * ```
  *
  * @example
  * Extend the preset with project-specific settings:
  *
  * ```ts
- * import cspellSettings from "@your-scope/cspell-config";
+ * import cspellSettings from "awesome-config/cspell-config";
  *
  * export default {
  *   ...cspellSettings,

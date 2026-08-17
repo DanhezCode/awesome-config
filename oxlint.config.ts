@@ -1,8 +1,6 @@
 /* oxlint-disable max-lines */
 import type { DummyRuleMap, OxlintConfig, RuleCategories } from "oxlint";
 
-import { defineConfig } from "oxlint";
-
 const categories = {
   // Rules that detect code that is definitely incorrect or useless.
   correctness: "error",
@@ -315,10 +313,21 @@ const rules = {
 } satisfies DummyRuleMap;
 
 /**
- * Preact-specific overrides.
+ * Preact-specific rule overrides.
  *
- * This object intentionally contains only rules whose behavior differs
- * from the generic JSX preset.
+ * @remarks
+ * This rule set contains only the rules whose behavior differs from the
+ * recommended generic JSX configuration when targeting Preact.
+ *
+ * The overrides:
+ *
+ * - Allows the standard HTML `class` attribute, which is supported directly
+ *   by Preact but is reported by the React-oriented `no-unknown-property`
+ *   rule.
+ * - Disables React Compiler rules that are not applicable to Preact projects.
+ *
+ * These rules are intended to be applied on top of the base Oxlint preset
+ * through the `extends` mechanism.
  */
 export const preactRules = {
   // Preact supports `class` directly, while the React-oriented rule expects
@@ -337,18 +346,51 @@ export const preactRules = {
 /**
  * Recommended Oxlint configuration for modern TypeScript/JSX projects.
  *
- * The preset provides a strict correctness baseline while keeping
- * performance, restriction, and subjective stylistic rules non-blocking.
+ * @remarks
+ * This preset provides a strict, type-aware linting baseline for modern
+ * TypeScript and JSX projects.
  *
- * Type-aware linting is enabled, so the consuming project must provide
- * a valid TypeScript configuration.
+ * The preset:
+ *
+ * - Enables recommended Oxlint categories for correctness, performance,
+ *   restrictions, suspicious patterns, and code quality.
+ * - Enables type-aware linting and TypeScript type checking.
+ * - Enables plugins commonly used by modern TypeScript/JSX projects.
+ * - Provides a conservative severity policy that keeps subjective or
+ *   non-critical rules non-blocking while enforcing correctness and
+ *   performance issues.
+ *
+ * The preset is designed to be extended by framework-specific configurations.
+ * For example, a Preact preset can extend this configuration and provide
+ * only the rules that differ from the generic JSX defaults.
+ *
+ * @example
+ * Use the preset directly in `oxlint.config.ts`:
+ *
+ * ```ts
+ * export { default } from "awesome-config/oxlint-config";
+ * ```
+ *
+ * @example
+ * Extend the preset with Preact-specific rules:
+ *
+ * ```ts
+ * import { preactRules } from "awesome-config/oxlint-config";
+ *
+ * export default {
+ *   extends: ["awesome-config/oxlint-config"],
+ *   rules: preactRules,
+ * };
+ * ```
+ *
+ * @see https://oxc.rs/docs/guide/usage/linter
  */
-const configLint = defineConfig({
+const configLint = {
   categories,
   options,
   plugins,
   rules,
-} satisfies OxlintConfig);
+} satisfies OxlintConfig;
 
 // oxlint-disable-next-line import/no-default-export
 export default configLint;
