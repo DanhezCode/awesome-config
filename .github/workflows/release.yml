@@ -52,4 +52,5 @@ jobs:
           --package semantic-release@25
           --package @semantic-release/exec@6.0.3
           --package conventional-changelog-conventionalcommits@9
+          --package typescript
           semantic-release
