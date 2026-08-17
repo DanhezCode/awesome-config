@@ -40,7 +40,15 @@ jobs:
           fetch-depth: 0
 
       - name: Configure branch
-        run: git checkout -B "${{ github.event.workflow_run.head_branch }}"
+        run: |
+          git fetch origin "+refs/heads/*:refs/remotes/origin/*"
+          git checkout -B "${{ github.event.workflow_run.head_branch }}"
+
+      - name: Debug git context
+        run: |
+          git branch -a
+          git tag --list | tail -20
+          git status
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2.2.0
