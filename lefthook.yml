@@ -7,7 +7,7 @@ pre-commit:
         jobs:
           - name: format
             run: bun oxfmt --write {staged_files}
-            glob: "*.{js,jsx,ts,tsx,json,css,md}"
+            glob: "*.{js,jsx,ts,tsx,json,css,md,yml}"
             stage_fixed: true
           - name: lint
             run: bun oxlint --fix {staged_files}
