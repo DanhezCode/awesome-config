@@ -42,6 +42,8 @@ jobs:
       - name: Configure branch
         run: |
           git fetch origin "+refs/heads/*:refs/remotes/origin/*"
+          git branch main origin/main || true
+          git branch beta origin/beta || true
           git checkout -B "${{ github.event.workflow_run.head_branch }}"
 
       - name: Debug git context
