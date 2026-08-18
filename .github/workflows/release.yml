@@ -36,8 +36,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: ${{ github.event.workflow_run.head_branch }}
           fetch-depth: 0
+
+      - name: Verify context
+        run: |
+          git fetch --tags --force
+          echo "Workflow branch: ${{ github.event.workflow_run.head_branch }}"
+          echo "Workflow sha: ${{ github.event.workflow_run.head_sha }}"
+          echo "Current branch:"
+          git branch --show-current
+          echo "Current commit:"
+          git rev-parse HEAD
+          echo "Latest commits:"
+          git log --oneline --decorate -5
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2.2.0
